@@ -15,14 +15,18 @@ def render(st):
     ox = int(st[9, :, 7].sum()); dv = int(st[9, :, 8].sum())
     return "\n".join("".join(r) for r in g[:9]) + f"\n oxygen bar {ox}/10, divers {dv}"
 causes = collections.Counter(); examples = collections.defaultdict(list); lengths = []
+kills = []; bonus = []; surfaces = []; full6 = []; scores = []
 for ep in range(300):
     e = Environment("seaquest", sticky_action_prob=0.1); e.seed(10_000 + ep); e.reset()
-    hist = []
+    hist = []; k = b = sf = f6 = 0
     for t in range(10_000):
         st = e.state(); s = st.reshape(-1).astype(float); z = logits(s)
         p = np.exp(z - z.max()); p /= p.sum(); a = min(5, int((p.cumsum() < rng.random()).sum()))
         g = e.env; ox, dc, y0 = g.oxygen, g.diver_count, g.sub_y
-        _, done = e.act(a); sticky = e.last_action != a
+        rr, done = e.act(a); sticky = e.last_action != a
+        if g.surface and y0 > 0 and not done:
+            sf += 1; f6 += dc == 6; b += rr if dc == 6 else 0; k += rr if dc != 6 else 0
+        else: k += rr
         hist.append((st, z, a, e.last_action))
         if done:
             if ox <= 0 or g.oxygen <= 0: c = "oxygen ran out"
@@ -30,9 +34,14 @@ for ep in range(300):
             else: c = "hit by enemy/bullet"
             c += " (sticky repeat)" if sticky else ""
             causes[c] += 1; lengths.append(t + 1)
+            kills.append(k); bonus.append(b); surfaces.append(sf); full6.append(f6); scores.append(k + b)
             if len(examples[c]) < 4: examples[c].append(hist[-3:])
             break
 print(f"300 diagnostic episodes (seeds 10000+, not the scoring seeds). Mean length {np.mean(lengths):.0f}.", file=out)
+L = np.array(lengths); S_ = np.array(scores)
+print(f"Score: mean {S_.mean():.1f}, median {np.median(S_):.0f}; points from enemy kills {np.mean(kills):.1f}, from 6-diver surfacing bonuses {np.mean(bonus):.1f}", file=out)
+print(f"Per episode: surfaces {np.mean(surfaces):.1f} (with 6 divers {np.mean(full6):.2f}); kills per 100 steps {100*np.sum(kills)/L.sum():.2f}", file=out)
+print(f"Episode length percentiles 10/50/90: {np.percentile(L,10):.0f}/{np.percentile(L,50):.0f}/{np.percentile(L,90):.0f}", file=out)
 print("Cause of death:", file=out)
 for c, n in causes.most_common(): print(f"  {n:4d}  {c}", file=out)
 print("\nLegend: P sub front, b sub back, F fish, S enemy sub, * enemy bullet, - your bullet, d diver, ~ trail", file=out)
