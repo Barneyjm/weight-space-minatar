@@ -2,3 +2,4 @@ game,model,effort,status,sha256,mean,se,median,max,mean_len,tool_calls,wall_min
 breakout,fable-5.1,max,failed: hit the 64k output-token limit before any reply,,,,,,,Read,?
 asterix,fable-5.1,max,scored,11ba07b80b52ed51168f623673b4f90e7b14878c327d5dcca0b12765b5fc61ad,36.2,0.8,35,157,765,Read,54
 seaquest,fable-5.1,max,failed: hit the 64k output-token limit before any reply,,,,,,,Read,?
+breakout,fable-5.1,xhigh (retry),scored,b4995bc67b241545ecc5ded74241c86499b975a7d4bb5d46a74de7df38b5dfa7,61.3,2.1,40,536,930,Read,51
