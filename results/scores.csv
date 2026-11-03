@@ -9,3 +9,4 @@ seaquest,opus,revision-1,seaquest/opus/weights_v2.npz,a59df6defce36acf04fbe14914
 seaquest,fable,one-shot,seaquest/fable/weights.npz,d91403be8f37798c574c7c5b3a83f713032e5fa34be352c254a12a9978503b2d,19.0,20.7,12,0,104,0.0%,622,8-15
 seaquest,fable,revision-1,seaquest/fable/weights_v2.npz,c4704a5292998c4d18e3c97747eb4e35f54b2f545bcbe1dbb504ce42b1fa9506,26.3,14.0,28,0,62,0.0%,1732,~30
 seaquest,opus,revision-2,seaquest/opus/weights_v3.npz,af071ee1fabda33837ce984dee433def40db730fd0ff8c4de934e380454b8bc0,31.9,27.0,25,0,142,0.0%,1104,15-25
+seaquest,fable,revision-2,seaquest/fable/weights_v3.npz,309af9d5fb70fec8300b2a2b019c07eec52ba8e74593d2125c0ab7d4697d9ed8,29.2,15.5,34,0,68,0.0%,2022,~30

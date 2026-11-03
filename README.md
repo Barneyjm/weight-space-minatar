@@ -40,6 +40,7 @@ python evaluate.py breakout/fable/weights.npz breakout
 | Asterix, one shot | 13.0 | **23.1** | |
 | Seaquest, one shot | 13.2 | **19.0** | |
 | Seaquest, revision 1 | 10.5 | **26.3** | |
+| Seaquest, revision 2 | **31.9** (median 25, max 142) | 29.2 (median 34, max 68) | |
 
 Full stats, including each author's own prediction: [`results/scores.csv`](results/scores.csv).
 
@@ -47,7 +48,11 @@ Full stats, including each author's own prediction: [`results/scores.csv`](resul
 - **Breakout is special.** Fable's Breakout network predicts where the ball will cross the paddle row, using the period-20 triangle wave of the ball's x position, and moves there. That is a well-known closed-form controller, and MinAtar's source has been public since 2019, so recall and derivation can't be told apart.
 - **Other games:** with no textbook strategy, Fable's lead shrinks from 75× to 1.4–1.8×, and both models score in the tens.
 - **The same question applies to Astra's 517.** A high Breakout score shows a model can compile a strategy into weights. It doesn't show it can find one.
-- **Revisions from failure traces separate the models more than first attempts do.** Fable kept its scoring logic and fixed the cause of death: sticky-action repeats into danger. It went from 19.0 to 26.3, and survival nearly tripled. Opus attacked the same cause by suppressing movement, which cut kills, and dropped from 13.2 to 10.5.
+- **Revisions from failure traces separate the models more than first attempts do.**
+  - *Revision 1:* Fable kept its scoring logic and fixed the cause of death, sticky-action repeats into danger. It went from 19.0 to 26.3, and survival nearly tripled. Opus attacked the same cause by suppressing movement, which cut kills, and dropped from 13.2 to 10.5.
+  - *Revision 2:* the diagnostics also showed where points came from. Both models converged on a two-row lookahead against sticky repeats plus surfacing with 6 divers for the oxygen bonus. Opus reached 31.9 and Fable 29.2.
+  - The means are close: Opus's is higher, driven by a heavier tail (max 142 vs 68), and Fable's median is higher (34 vs 25). Opus's round 2 is not independent; see the caveats.
+- **Fable predicts its own score well once it has feedback.** It predicted ~30 for revision 1 (got 26.3) and ~30 for revision 2 (got 29.2). Neither model predicted its one-shot scores well.
 - **Hand-written networks here are readable.** Every unit is an exact threshold on 0/1 inputs, such as "this cell is unsafe" or "enemy ahead", so a failing unit can be found from a trace.
 
 ## Caveats
@@ -58,14 +63,15 @@ Full stats, including each author's own prediction: [`results/scores.csv`](resul
   - Opus saw Fable's one-shot Seaquest report, i.e. its strategy, before writing its own Seaquest revision.
   - Fable never saw anything from Opus.
   - Every Opus entry was scored before the matching Fable report arrived.
+  - **Seaquest revision 2 (Opus) is contaminated.** Before writing it, Opus had seen two things from Fable: its revision-1 report, which described a two-row lookahead, and its diagnostic header, which showed most of its points come from 6-diver bonuses. Both ideas appear in Opus's revision 2.
 - **No audit by Fable's own transcript is published.** The organizer checked each Fable transcript and found that every tool call stayed inside its folder, with no imports of the game package and no web use.
-- **The sample is small:** 3 games, 2 models, at most 2 rounds.
+- **The sample is small:** 3 games, 2 models, at most 3 rounds (Seaquest).
 
 ## History
 - **Round 1, commit `round-1`:** artifacts collected afterwards from frozen files. All hashes match the scored files, and every weight file rebuilds bit-for-bit from its script.
-- **Later rounds:** each round adds three commits, in this order:
+- **Round 2, commits `Round 2a`–`2c`, tag `round-2`:** recorded live, in this order:
   1. the failure traces given to both authors;
-  2. the new weights, committed *before* they were scored;
+  2. each author's new weights with its prediction, committed *before* scoring;
   3. the scores.
 
 ## Layout
