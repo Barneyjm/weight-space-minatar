@@ -3,3 +3,4 @@ breakout,fable-5.1,max,failed: hit the 64k output-token limit before any reply,,
 asterix,fable-5.1,max,scored,11ba07b80b52ed51168f623673b4f90e7b14878c327d5dcca0b12765b5fc61ad,36.2,0.8,35,157,765,Read,54
 seaquest,fable-5.1,max,failed: hit the 64k output-token limit before any reply,,,,,,,Read,?
 breakout,fable-5.1,xhigh (retry),scored,b4995bc67b241545ecc5ded74241c86499b975a7d4bb5d46a74de7df38b5dfa7,61.3,2.1,40,536,930,Read,51
+seaquest,fable-5.1,xhigh (retry),scored,451a91bbaa29778cdde03f6a0113402006bae28ae961de6ebe07a48cb4c0d28b,0.8,0.0,0,12,103,Read,59

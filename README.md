@@ -61,7 +61,11 @@ Full stats, including each author's own prediction: [`results/scores.csv`](resul
 
 Our setup is **easier** than Astra's on every axis except effort: a wider network, unmerged inputs, tools, and feedback.
 
+## Matched test: Fable under Astra's exact rules
+Fable 5.1 got the authors' own prompts, unchanged: 32-unit layers, 6-channel input, no tools, one reply, weights as text. It scored **61.3** on Breakout, **36.2** on Asterix and **0.8** on Seaquest. Astra's published networks score 502.9 / 53.4 / 56.7 in the same evaluator. Two max-effort runs hit the output-token limit and were rerun once at `xhigh`. Details in [`matched/`](matched/).
+
 ## What we think it shows
+- **Under identical conditions Astra is far ahead on all three games** (matched test above). Fable's 533.9 on Breakout depended on tools and a wider network; with neither, it scored 61.3.
 - **Astra's result holds up beyond Breakout.** Under stricter rules, its one-shot networks score 53 on Asterix and 53–57 on Seaquest. Both Claude models' one-shot networks score 13–23. Even after two revision rounds with failure traces, the best Claude Seaquest score (31.9) is below Astra's one shot.
 - **Breakout is the one game where Fable matches Astra** (533.9 vs 502.9 on the same seeds). Fable's network predicts where the ball will cross the paddle row, using the period-20 triangle wave of the ball's x position, and moves there. That is a well-known closed-form controller, so this game says the least about deriving a strategy. Astra's lead on the other two games suggests its Breakout score is not just recall.
   - An earlier draft of this README guessed that Astra's 517 might be recall, like Fable's might be. Astra's Asterix and Seaquest numbers, which the earlier draft missed, argue against that.
