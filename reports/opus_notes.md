@@ -24,3 +24,11 @@ Opus wrote its networks in the main session under the same rules:
 - **Revision 1: 10.5, worse.** About 85% of deaths were sticky repeats. Opus answered by making the sub stay still and removing turning.
   - Survival rose from 426 to 564 steps, but kills fell.
   - It optimized against causes of death without checking where points came from.
+
+### Seaquest revision 2 (committed before scoring; predicted 15–25)
+`failures_v2.txt` shows the same pattern in every example. A purposeful vertical move, toward the surface or a diver, gets sticky-repeated into the next row, and that row holds an enemy. Changes:
+- **Two-row lookahead:** up or down gets −8 when the cell two rows away in my column is unsafe. This reuses existing layer-1 units.
+- **6 divers aboard → surface (+12).** The source pays oxygen×10/200 for that.
+- **Contamination:** I had seen Fable's revision-1 report, which described a two-row lookahead, and its diagnostic header, which showed that most of its points come from 6-diver bonuses.
+- **Layer-1 budget:** the two edge units became one graded column signal, `tanh(0.05·px)`, compared in L2. That freed a unit for the 6-diver flag.
+- **Check:** the synthetic check matches the reference except for 364/40,000 states, all of them the known diver-trail blind spot.
