@@ -27,3 +27,15 @@ What changed and why (from `failures_v1.txt`):
 - Paid for it with 2-half (instead of 3-bin) enemy/diver side units; divers always move toward the centre so this costs little.
 
 Predicted mean score: ~30 (longer lives; same kill/diver logic).
+
+## Revision 2
+
+Revision 2 saved: `fable_seaquest/weights_v3.npz` (H1=H2=254) from `fable_seaquest/write_weights_v3.py`; `weights.npz` and `weights_v2.npz` untouched. Self-check `check_weights_v3.py`: 25 hand-built boards (incl. re-creations of the v2 failure frames) vs an independent reference of the rule, all logits match exactly, all layer-1 units saturated.
+
+Changes and why (from `failures_v2.txt`: 78% of points were 6-diver bonuses, deaths cluster in the late crowded phase, 38% were sticky chains):
+- Dropped the aimed-shooting units (EL/ER/turn); the sub now fires whenever idle (free, never moves it). The freed units buy a third-row soft lookahead (-20): a seeking step whose two sticky repeats would land on a hazard is no longer taken, dodges still are.
+- Wall-aware fleeing: at x=0/9 the no-op flee is suppressed below the blocked-vertical level (it got the sub shot while "fleeing" into a wall); horizontal block vs nearby hazards raised to -130.
+- Diver-less surfacing chains: row 2 with no divers blocks `u` at -45; row-1 divers no longer pull the sub up from row 3.
+- Ascend thresholds lowered to oxygen <40 / <20 (fewer surfaces, each surface ramps difficulty); removed the block override that walked into a sub.
+
+Predicted mean score: ~30 (longer episodes, slightly fewer kills).
