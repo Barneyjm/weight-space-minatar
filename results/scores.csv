@@ -1,0 +1,10 @@
+game,author,round,weights,sha256,mean,sd,median,min,max,cap_frac,mean_len,own_prediction
+breakout,opus,one-shot,breakout/opus/weights.npz,fa3bd9e3050d7380adbaf66fe3e80c2c5f7ec46f12273ab94cc00d53bd7fba7d,7.1,3.2,7,0,43,0.0%,82,not recorded
+breakout,opus,revision-1,breakout/opus/weights_v2.npz,197a041d43e945b9e1914c65c18616c246932aa370342375c29e9d06f9e7de43,23.0,20.9,15,0,119,0.0%,287,not recorded
+breakout,fable,one-shot,breakout/fable/weights.npz,00e8012997e4a632ec6bbe72186477a208e8d3d3b4c6a526e84155e8e44170b1,533.9,299.9,617,1,838,40.8%,6476,60-150
+asterix,opus,one-shot,asterix/opus/weights.npz,719b2354f008b5e08450e1e7493ac33d3e70b05630557ab0ae0364e5b0bd1d87,13.0,13.9,8,0,92,0.0%,316,15-40
+asterix,fable,one-shot,asterix/fable/weights.npz,3157c11949c5be63197b34337798d8b16089eda6860b793892e8ad7b7385e668,23.1,16.2,21,0,83,0.0%,553,8-15
+seaquest,opus,one-shot,seaquest/opus/weights.npz,84388eb3ee16e78f32982aed94bf38249913e6c4029af0fd316d3610c6cba17f,13.2,14.3,9,0,104,0.0%,426,5-15
+seaquest,opus,revision-1,seaquest/opus/weights_v2.npz,a59df6defce36acf04fbe14914e0b6434804d6cd084106619b2c7182e91d8adc,10.5,11.6,7,0,114,0.0%,564,20-30
+seaquest,fable,one-shot,seaquest/fable/weights.npz,d91403be8f37798c574c7c5b3a83f713032e5fa34be352c254a12a9978503b2d,19.0,20.7,12,0,104,0.0%,622,8-15
+seaquest,fable,revision-1,seaquest/fable/weights_v2.npz,c4704a5292998c4d18e3c97747eb4e35f54b2f545bcbe1dbb504ce42b1fa9506,26.3,14.0,28,0,62,0.0%,1732,~30
