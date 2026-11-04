@@ -107,3 +107,7 @@ results/scores.csv       every scored file with hash and stats
 ```
 
 MinAtar (GPL-3.0) is not included; install it from PyPI.
+
+## License
+
+MIT (see `LICENSE`) for the code, weights, and write-ups in this repo. MinAtar and the Astra authors' logs are their owners' and are not redistributed here.
